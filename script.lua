@@ -1,5 +1,5 @@
 -- TEHK UNIV MENUUU
--- Build Number: 42
+-- Build Number: -22
 -- Build Date: 2026-10-11T07:08:04Z
 
 
@@ -2087,7 +2087,7 @@ do -- Routine Module: StarterGui.tehk!.FUNCTIONS
     script.Name = "FUNCTIONS"
     script.Parent = Converted["_tehk!"]
     local function module_script()
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 		local FUNCTIONSmodule = {}
 		FUNCTIONSmodule.__v = "1.22"
@@ -3208,7 +3208,7 @@ do -- Routine Module: StarterGui.tehk!.DraggableObject
     script.Name = "DraggableObject"
     script.Parent = Converted["_tehk!"]
     local function module_script()
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 		local function a(b,c)local d=c.AbsoluteSize;local e=c.AbsolutePosition;local f=b.X.Scale*d.X+b.X.Offset;local g=b.Y.Scale*d.Y+b.Y.Offset;local h=math.clamp(f,0,d.X)local i=math.clamp(g,0,d.Y)local j=UDim2.new(b.X.Scale,h-b.X.Scale*d.X,b.Y.Scale,i-b.Y.Scale*d.Y)return j end;local k=UDim2.new;local l=game:GetService("UserInputService")local m=game:GetService("TweenService")local n={}n.__index=n;function n.new(o,p,q,r)local self={}self.Object=o;self.ToMove=p;self.Smooth=q;self.CallbackOnly=r;self.DragStarted=nil;self.DragEnded=nil;self.Dragged=nil;self.Dragging=false;self.LastPosition=nil;self.Velocity=Vector2.new(0,0)setmetatable(self,n)return self end;function n:Enable()local s=self.Object;local t=self.ToMove;local u=nil;local v=nil;local w=nil;local x=false;local function y(z)local A=z.Position-v;local B=UDim2.new(w.X.Scale,w.X.Offset+A.X,w.Y.Scale,w.Y.Offset+A.Y)if self.CallbackOnly then else B=a(B,self.Object:FindFirstAncestorWhichIsA("ScreenGui"))if(self.Smooth==nil or self.Smooth==true)and self.Smooth~=false then m:Create(t and t or s,TweenInfo.new(0.5,Enum.EasingStyle.Cubic,Enum.EasingDirection.Out),{Position=B}):Play()else local C=t and t or s;C.Position=B end end;return B end;self.InputBegan=s.InputBegan:Connect(function(z)if z.UserInputType==Enum.UserInputType.MouseButton1 or z.UserInputType==Enum.UserInputType.Touch then x=true;local D;D=z.Changed:Connect(function()if z.UserInputState==Enum.UserInputState.End and(self.Dragging or x)then self.Dragging=false;D:Disconnect()if self.DragEnded and not x then self.DragEnded(self.Velocity)end;x=false end end)end end)self.InputChanged=s.InputChanged:Connect(function(z)if z.UserInputType==Enum.UserInputType.MouseMovement or z.UserInputType==Enum.UserInputType.Touch then u=z end end)self.InputChanged2=l.InputChanged:Connect(function(z)if s.Parent==nil then self:Disable()return end;if x then x=false;if self.DragStarted then self.DragStarted()end;self.Dragging=true;v=z.Position;if t then w=t.Position else w=s.Position end;self.LastPosition=z.Position end;if z==u and self.Dragging then local B=y(z)self.Velocity=z.Position-self.LastPosition;self.LastPosition=z.Position;if self.Dragged then self.Dragged(B)end end end)end;function n:Disable()self.InputBegan:Disconnect()self.InputChanged:Disconnect()self.InputChanged2:Disconnect()if self.Dragging then self.Dragging=false;if self.DragEnded then self.DragEnded(self.Velocity)end end end;return n
 		
@@ -3220,7 +3220,7 @@ do -- Routine Module: StarterGui.tehk!.ClickAndHold
     script.Name = "ClickAndHold"
     script.Parent = Converted["_tehk!"]
     local function module_script()
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 		local a={}a.__index=a;local b=game:GetService("UserInputService")function a.new(c,d)local self=setmetatable({},a)self.textButton=c;self.holdTime=d or 0.5;self.holdTask=nil;self.initialPosition=nil;self.Holded=Instance.new("BindableEvent")local function e(f,g)return math.sqrt((g.X-f.X)^2+(g.Y-f.Y)^2)end;self.textButton.MouseButton1Down:Connect(function(h,i)self.initialPosition=Vector2.new(h,i)self.holdTask=task.spawn(function()task.wait(self.holdTime)if self.holdTask then self.Holded:Fire()end end)end)b.InputChanged:Connect(function(j)if j.UserInputType==Enum.UserInputType.MouseMovement or j.UserInputType==Enum.UserInputType.Touch then if self.holdTask and self.initialPosition then local k=j.Position;local l=e(self.initialPosition,k)if l>10 then coroutine.close(self.holdTask)self.holdTask=nil end end end end)b.InputEnded:Connect(function(j)if j.UserInputType==Enum.UserInputType.MouseButton1 or j.UserInputType==Enum.UserInputType.Touch then if self.holdTask then coroutine.close(self.holdTask)self.holdTask=nil end;self.initialPosition=nil end end)return self end;return a
     end
@@ -3231,7 +3231,7 @@ do -- Routine Module: StarterGui.tehk!.Spring
     script.Name = "Spring"
     script.Parent = Converted["_tehk!"]
     local function module_script()
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 		local a=game:GetService("RunService")local b={}function OverDamping(c,d,e,f,g,h)local i=d*d-4*e/c;local j=-1/2;local k=d+math.sqrt(i)local l=d-math.sqrt(i)local m,n=j*k,j*l;local o,p=(n*f-g)/(n-m),(m*f-g)/(m-n)local q=h/e;return{Offset=function(r)return o*math.exp(m*r)+p*math.exp(n*r)+q end,Velocity=function(r)return o*m*math.exp(m*r)+p*n*math.exp(n*r)end,Acceleration=function(r)return o*m*m*math.exp(m*r)+p*n*n*math.exp(n*r)end}end;function CriticalDamping(c,d,e,f,g,h)local s=-d/2;local o,p=f,g-s*f;local q=h/e;return{Offset=function(r)return math.exp(s*r)*(o+p*r)+q end,Velocity=function(r)return math.exp(s*r)*(p*s*r+o*s+p)end,Acceleration=function(r)return s*math.exp(s*r)*(p*s*r+o*s+2*p)end}end;function UnderDamping(c,d,e,f,g,h)local i=d*d-4*e/c;local s=-d/2;local t=math.sqrt(-i)local o,p=f,(g-s*f)/t;local q=h/e;return{Offset=function(r)return math.exp(s*r)*(o*math.cos(t*r)+p*math.sin(t*r))+q end,Velocity=function(r)return-math.exp(s*r)*((o*t-p*s)*math.sin(t*r)+(-p*t-o*s)*math.cos(t*r))end,Acceleration=function(r)return-math.exp(s*r)*((p*t*t+2*o*s*t-p*s*s)*math.sin(t*r)+(o*t*t-2*p*s*t-o*s*s)*math.cos(t*r))end}end;function b.F(u)local f,g,h=u.InitialOffset,u.InitialVelocity,u.ExternalForce;local c,d,e=u.Mass,u.Damping,u.Constant;local i=d*d-4*e/c;if i>0 then return OverDamping(c,d,e,f,g,h)elseif i==0 then return CriticalDamping(c,d,e,f,g,h)else return UnderDamping(c,d,e,f,g,h)end end;local v=b;local w=math.sqrt;local x=math.pi;local y={OFFSET="Offset",VELOCITY="Velocity",ACCELERATION="Acceleration",GOAL="Goal",FREQUENCY="Frequency"}local z=[[.]]local A=[[.]]local u={}local B={}B.__index=function(self,C)local D={[y.OFFSET]=function()local r=tick()-self.StartTick;local E=self.F;local F=E.Offset(r)return F end,[y.VELOCITY]=function()local r=tick()-self.StartTick;local E=self.F;local G=E.Velocity(r)return G end,[y.ACCELERATION]=function()local r=tick()-self.StartTick;local E=self.F;local H=E.Acceleration(r)return H end,[y.GOAL]=function()local I=self.ExternalForce;local J=self.Constant;return I/J end,[y.FREQUENCY]=function()local K=self.Damping;local L=self.Constant;local M=self.Mass;return w(-K*K+4*L/M)/(2*x)end}local N=rawget(self,C)if N~=nil then return N end;local O=D[C]if O~=nil then return O()end;return B[C]end;B.__tostring=function(self)local r=tick()-self.StartTick;local E=self.F;local P=self.AdvancedObjectStringEnabled;local Q;if P==false then Q=string.format(z,E.Offset(r),E.Velocity(r),E.Acceleration(r))elseif P==true then Q=string.format(A,self.Mass,self.Damping,self.Constant,self.Goal,self.Frequency,self.InitialOffset,self.InitialVelocity,self.ExternalForce,self.StartTick,E.Offset(r),E.Velocity(r),E.Acceleration(r))end;return Q end;function u.new(M,K,L,f,g,R)assert(M>0,"Mass for spring system cannot be less than or equal to 0")assert(L>0,"Spring constant for spring system cannot be less than or equal to 0")f=f or 0;g=g or 0;R=R or 0;local S=R*L;local T={Mass=M,Damping=K,Constant=L,InitialOffset=f-R,InitialVelocity=g,ExternalForce=S,AdvancedObjectStringEnabled=false,StartTick=0}setmetatable(T,B)T:Reset()return T end;function u.fromFrequency(M,K,U,f,g,R)assert(M>0,"Mass for spring system cannot be less than or equal to 0")assert(U>0,"Spring frequency for spring system cannot be less than or equal to 0")local L=0.25*M*(4*x*x*U*U+K*K)f=f or 0;g=g or 0;R=R or 0;local S=R*L;local T={Mass=M,Damping=K,Constant=L,InitialOffset=f-R,InitialVelocity=g,ExternalForce=S,AdvancedObjectStringEnabled=false,StartTick=0}setmetatable(T,B)T:Reset()return T end;function B:Reset()self.F=v.F(self)self.StartTick=tick()end;function B:SetExternalForce(V)self.ExternalForce=V;self.InitialOffset=self.Offset-V/self.Constant;self.InitialVelocity=self.Velocity;self:Reset()end;function B:SetGoal(R)self.ExternalForce=R*self.Constant;self.InitialOffset=self.Offset-R;self.InitialVelocity=self.Velocity;self:Reset()end;function B:SetFrequency(U)self.Constant=0.25*self.Mass*(4*x*x*U*U+self.Damping*self.Damping)self.InitialOffset=self.Offset;self.InitialVelocity=self.Velocity;self:Reset()end;function B:SnapToCriticalDamping()self.Damping=2*w(self.Constant/self.Mass)self.InitialOffset=self.Offset;self.InitialVelocity=self.Velocity;self:Reset()end;function B:SetOffset(F,W)self.InitialOffset=F-self.Goal;self.InitialVelocity=W and 0 or self.Velocity;self:Reset()end;function B:AddOffset(F)self.InitialOffset=self.Offset+F;self.InitialVelocity=self.Velocity;self:Reset()end;function B:SetVelocity(G)self.InitialOffset=self.Offset;self.InitialVelocity=G;self:Reset()end;function B:AddVelocity(G)self.InitialOffset=self.Offset;self.InitialVelocity=self.Velocity+G;self:Reset()end;function B:Print()local X=tostring(self)print(X)end;return u
     end
@@ -3242,7 +3242,7 @@ do -- Routine Module: StarterGui.tehk!.ESPIndicator
     script.Name = "ESPIndicator"
     script.Parent = Converted["_tehk!"]
     local function module_script()
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 		-- Robust ESP module with distancing, arrows, and grouping
 		-- Designed and written by tehk!
@@ -3256,7 +3256,7 @@ do -- Routine Module: StarterGui.tehk!.Bezier
     script.Name = "Bezier"
     script.Parent = Converted["_tehk!"]
     local function module_script()
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 		local h={} h.__index=h function h.new(...)local k={...} assert(#k>=3,"Must have at least 3 points") local e=(#k==3) local _=(#k==4) local j={} local d=Vector3.new local b=d().lerp local f=nil local i={} local c=0 local a=nil local function g(_)local _={_.X,_.Y,_.Z} function _:ToVector3()return d(self[1],self[2],self[3])end function _:lerp(_,a)return b(self:ToVector3(),_:ToVector3(),a)end return _ end if(not e and not _)then for _=1,#k-1 do local a=g(k[_]) local _=g(k[_+1]) local _={a,_,g(a)} i[#i+1]=_ end local b=i for _=#i,2,-1 do local a={} for c=1,_-1 do local b,_=b[c],b[c+1] local _={b[3],_[3],g(b[3])} a[c]=_ i[#i+1]=_ end b=a end a=b[1] c=#i end if(e)then local b,c,_=k[1],k[2],k[3] function j:Get(d,a)if(a)then d=(d<0 and 0 or d>1 and 1 or d)end return(1-d)*(1-d)*b+2*(1-d)*d*c+d*d*_ end elseif(_)then local _,a,c,b=k[1],k[2],k[3],k[4] function j:Get(e,d)if(d)then e=(e<0 and 0 or e>1 and 1 or e)end return(1-e)*(1-e)*(1-e)*_+3*(1-e)*(1-e)*e*a+3*(1-e)*e*e*c+e*e*e*b end else function j:Get(b,_)if(_)then b=(b<0 and 0 or b>1 and 1 or b)end for _=1,c do local _=i[_] local a=_[1]:lerp(_[2],b) local _=_[3] _[1],_[2],_[3]=a.X,a.Y,a.Z end return a[3]:ToVector3()end end function j:GetLength(_)if(not f)then local a=self:GetPath(_ or 0.1) local b=0 for _=2,#a do local _=(a[_-1]-a[_]).Magnitude b=(b+_)end f=b end return f end function j:GetPath(_)assert(type(_)=="number","Must provide a step increment") assert(_>0 and _<1,"Step out of domain; should be between 0 and 1 (exclusive)") local b={} local a=0 for _=0,1,_ do a=_ b[#b+1]=self:Get(_)end if(a<1)then local _=((1-a)<(_*0.5)) b[#b+(_ and 0 or 1)]=self:Get(1)end return b end function j:GetPathByNumberSegments(_)assert(type(_)=="number","Must provide number of segments") assert(_>0,"Number of segments must be greater than 0") return self:GetPath(1/_)end function j:GetPathBySegmentLength(a)assert(type(a)=="number","Must provide a segment length") assert(a>0,"Segment length must be greater than 0") local _=self:GetLength() local _=_/a return self:GetPathByNumberSegments(math.floor(_+0.5))end function j:GetPoints()return k end return setmetatable(j,h)end return h
     end
@@ -3267,7 +3267,7 @@ do -- Routine Module: StarterGui.tehk!.PointSave
     script.Name = "PointSave"
     script.Parent = Converted["_tehk!"]
     local function module_script()
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 		-- Datasaving module using files and folders
 		-- Designed and written by tehk!
@@ -3281,7 +3281,7 @@ do -- Routine Module: StarterGui.tehk!.Theme
     script.Name = "Theme"
     script.Parent = Converted["_tehk!"]
     local function module_script()
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 		-- Beautiful theming module for tehk!
 		
@@ -3448,7 +3448,7 @@ do -- Routine Module: StarterGui.tehk!.FlyUtility
     script.Name = "FlyUtility"
     script.Parent = Converted["_tehk!"]
     local function module_script()
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 		-- Mobile-compatible fly module
 		-- Designed and written by tehk!
@@ -3473,7 +3473,7 @@ local function SIXK_routine() -- Routine: StarterGui.tehk!.Universal
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local module = {}
 	module["gameId"] = 0 -- Restrict module to a certain game ID only. 0 allows all games.
@@ -4839,7 +4839,7 @@ local function OEUTOK_routine() -- Routine: StarterGui.tehk!.Init
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	getgenv().Modules = {}
 	
@@ -4951,7 +4951,7 @@ local function PXTD_routine() -- Routine: StarterGui.tehk!.Forsaken
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	-- Module setup
 	local module = {}
@@ -5303,7 +5303,7 @@ local function GPPVDZ_routine() -- Routine: StarterGui.tehk!.Murder Mystery 2
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local module = {}
 	module["gameId"] = 0 -- 66654135 -- Restrict module to a certain game ID only. 0 allows all games.
@@ -6878,7 +6878,7 @@ local function OYCTOD_routine() -- Routine: StarterGui.tehk!.Flee the Facility
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local module = {}
 	module["gameId"] = 372226183 -- Restrict module to a certain game ID only. 0 allows all games.
@@ -7357,7 +7357,7 @@ local function KGHCMW_routine() -- Routine: StarterGui.tehk!.AdLoader
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	-- keyless folks still need money too
 	
@@ -7444,7 +7444,7 @@ local function SMODTE_routine() -- Routine: StarterGui.tehk!.Brookhaven
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local module = {}
 	module["gameId"] = 0
@@ -9082,7 +9082,7 @@ local function NVUYGAA_routine() -- Routine: StarterGui.tehk!.Open.InitOpen
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local ts = game:GetService("TweenService")
 	
@@ -9120,7 +9120,7 @@ local function MGAVM_routine() -- Routine: StarterGui.tehk!.Open.OnClick
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local ts = game:GetService("TweenService")
 	
@@ -9167,7 +9167,7 @@ local function ZMMHXK_routine() -- Routine: StarterGui.tehk!.Open.Resizer
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local guiObject = script.Parent
 	local userInputService = game:GetService("UserInputService")
@@ -9255,7 +9255,7 @@ local function VHKKYR_routine() -- Routine: StarterGui.tehk!.FloatingButton.Keyb
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	
 end
@@ -9272,7 +9272,7 @@ local function PWNP_routine() -- Routine: StarterGui.tehk!.FloatingButton.Invisi
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	--local ts = game:GetService("TweenService")
 	
@@ -9324,7 +9324,7 @@ local function ETDFZV_routine() -- Routine: StarterGui.tehk!.AddCustomModule.Add
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local ts = game:GetService("TweenService")
 	
@@ -9380,7 +9380,7 @@ local function VXGKP_routine() -- Routine: StarterGui.tehk!.AddCustomModule.Canc
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local ts = game:GetService("TweenService")
 	
@@ -9406,7 +9406,7 @@ local function SEWCH_routine() -- Routine: StarterGui.tehk!.Menu.UIStroke.UIGrad
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local ts = game:GetService("TweenService")
 	
@@ -9429,7 +9429,7 @@ local function NDWJFUA_routine() -- Routine: StarterGui.tehk!.Menu.CloseArea.Clo
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local TweenService = game:GetService("TweenService")
 	local RunService = game:GetService("RunService")
@@ -9791,7 +9791,7 @@ local function YOOOH_routine() -- Routine: StarterGui.tehk!.Menu.List.AutoSetup
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	--local ts = game:GetService("TweenService")
 	
@@ -9847,7 +9847,7 @@ local function XOGGM_routine() -- Routine: StarterGui.tehk!.Menu.List.AddCustomM
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local ts = game:GetService("TweenService")
 	
@@ -9873,7 +9873,7 @@ local function JDOH_routine() -- Routine: StarterGui.tehk!.Menu.PHContainer.PHCo
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	local ts = game:GetService("TweenService")
 	
@@ -9941,7 +9941,7 @@ local function NVYMHDB_routine() -- Routine: StarterGui.tehk!.FloatingButtonSett
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	script.Parent.MouseButton1Click:Connect(function()
 		getgenv().tehk!FUNCTIONS.ftToggleVisibility()
@@ -9960,7 +9960,7 @@ local function WRGZW_routine() -- Routine: StarterGui.tehk!.FloatingButtonSettin
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	script.Parent.MouseButton1Click:Connect(function()
 		getgenv().tehk!FUNCTIONS.ftToggleLock()
@@ -9979,7 +9979,7 @@ local function HMIUQI_routine() -- Routine: StarterGui.tehk!.FloatingButtonSetti
         return req(obj)
     end
 
-    -- Â© Aetherion 2026
+    -- Â© tehk! 2026
 
 	script.Parent.MouseButton1Click:Connect(function()
 		getgenv().tehk!FUNCTIONS.closeFinetuneFB()
